@@ -3,6 +3,7 @@
 __xorg_packages:
   - xserver-common
   - x11-xserver-utils
+  - firefox
   - xinit
 
 # Default xorg-fonts
