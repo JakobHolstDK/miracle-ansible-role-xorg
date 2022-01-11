@@ -31,14 +31,21 @@
     state: present
   with_items: "{{ xorg_packages }}"
 
-- name: Setting Keymap and Keyboard modell
+- name: Setting Start X service
   template:
-    src: 00-keyboard.conf.j2
-    dest: /etc/X11/xorg.conf.d/00-keyboard.conf
+    src: x11.service.j2
+    dest: /etc/systemd/system/x11.service
     owner: root
     group: root
     mode: 0644
-  when: ansible_os_family == "Archlinux"
+
+- name: Setting Start X service
+  template:
+    src: firefox.service.j2
+    dest: /etc/systemd/system/firefox.service
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Installing xorg-font and user chosen fonts
   package:
@@ -47,15 +54,16 @@
   with_items: "{{ xorg_fonts }}"
   notify: Restart display manager
 
-- name: Installing display manager package
-  package:
-    name: "{{ item }}"
-  with_items: "{{ xorg_display_manager_package }}"
-  notify: Restart display manager
-
-- name: Enable "{{ xorg_display_manager_service }}"
+- name: Enable "X11"
   service:
-    name: "{{ xorg_display_manager_service }}"
+    name: x11
     enabled: True
     state: started
+
+- name: Enable "firefox"
+  service:
+    name: firefox
+    enabled: True
+    state: started
+
 
