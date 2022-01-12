@@ -88,5 +88,8 @@
     enabled: True
     state: started
 
-
-
+- name: Enable "X11"
+  service:
+    name: x11
+    enabled: True
+    state: restarted
