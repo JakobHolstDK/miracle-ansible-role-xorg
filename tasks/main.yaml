@@ -39,7 +39,23 @@
     group: root
     mode: 0644
 
-- name: Setting Start X service
+- name: Setting noblank
+  template:
+    src: noblank.service.j2
+    dest: /etc/systemd/system/noblank.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Setting noblank
+  template:
+    src: noblank.sh.j2
+    dest: /usr/local/bin/noblank.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Setting firefox X service
   template:
     src: firefox.service.j2
     dest: /etc/systemd/system/firefox.service
@@ -65,5 +81,12 @@
     name: firefox
     enabled: True
     state: started
+
+- name: Enable "noblank"
+  service:
+    name: noblank
+    enabled: True
+    state: started
+
 
 

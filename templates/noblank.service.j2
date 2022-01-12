@@ -1,0 +1,8 @@
+[Unit]
+After=x11.service
+
+[Service]
+ExecStart=/usr/local/bin/noblank.sh
+
+[Install]
+WantedBy=multi-user.target
