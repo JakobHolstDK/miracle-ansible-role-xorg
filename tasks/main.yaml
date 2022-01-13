@@ -39,6 +39,12 @@
     group: root
     mode: 0644
 
+- name: disable  "gdm"
+  service:
+    name: gdm
+    enabled: false
+    state: stopped
+
 - name: Setting noblank
   template:
     src: noblank.service.j2
